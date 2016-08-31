@@ -1,10 +1,15 @@
 //var cv         = require("opencv");
 var resemble   = require("node-resemble-js");
+var fs         = require('fs');
 
 module.exports.verify = function(req, res){
     var picture = req.body.userPic.replace("data:image/jpeg;base64,", "");
     var userFile = new Buffer(picture, 'base64');
-    console.log(userFile);
+    console.log("about to write file");
+    fs.writeFile("picture.jpg", userFile, function(err){
+        console.log("file wrote")
+    });
+    
     //Will use this data to determine which image they are testing against
     var body = req.body;
     
