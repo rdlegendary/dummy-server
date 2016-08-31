@@ -4,7 +4,7 @@ var resemble   = require("node-resemble-js");
 module.exports.verify = function(req, res){
     var picture = req.body.userPic.replace("data:image/jpeg;base64,", "");
     var userFile = new Buffer(picture, 'base64');
-    
+    console.log(userFile);
     //Will use this data to determine which image they are testing against
     var body = req.body;
     
