@@ -1,8 +1,14 @@
 var resemble   = require("node-resemble-js");
 
 module.exports.verify = function(req, res){
-    var picture = req.body.userPic.replace("data:image/jpeg;base64,", "");
-    //var userFile = new Buffer(picture, 'base64');
+    var picture = req.body;
+    var file = req.file;
+    console.log("This is the body ", picture);
+    console.log("This is the file", req.file);
+    
+    res.status(200);
+    res.send();
+    /*var userFile = new Buffer(picture, 'base64');
     
     var diff = resemble(picture).onComplete(function(data){
         console.log(data);
