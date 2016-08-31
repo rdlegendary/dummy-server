@@ -1,20 +1,22 @@
-//var cv         = require("opencv");
 var resemble   = require("node-resemble-js");
-var fs         = require('fs');
 
 module.exports.verify = function(req, res){
     var picture = req.body.userPic.replace("data:image/jpeg;base64,", "");
     var userFile = new Buffer(picture, 'base64');
-    console.log("about to write file");
-    fs.writeFile("picture.jpg", userFile, function(err){
-        console.log("file wrote")
-    });
     
-    //Will use this data to determine which image they are testing against
-    var body = req.body;
+    var diff = resemble(userFile).onComplete(function(data){
+        console.log(data);
+    })
     
+    /*
+            var diff = resemble(testFile).compareTo(newUserImage).ignoreAntialiasing().onComplete(function(data){
+            var matchPercentage = 100 - parseInt(data.misMatchPercentage);
+            res.json({match: matchPercentage});
+
+    
+
     //Dummy Test.... For now
-    var testFile = global.absolutePath + "/images/test11.jpg";
+   
     
     /*
     
@@ -33,9 +35,6 @@ module.exports.verify = function(req, res){
     });
     */
     
-    var diff = resemble(userFile).compareTo(testFile).ignoreAntialiasing().onComplete(function(data){
-        var matchPercentage = 100 - parseInt(data.misMatchPercentage);
-        res.json({match: matchPercentage});
-    })
+   
     
 }
