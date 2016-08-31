@@ -1,10 +1,8 @@
 var resemble   = require("node-resemble-js");
 
 module.exports.verify = function(req, res){
-    var picture = req.body;
-    var file = req.file;
-    console.log("This is the body ", picture);
-    console.log("This is the file", req.file);
+    var file = req.files;
+    console.log("This is the file: ", file);
     console.log("This is the request", req);
     
     res.status(200);
