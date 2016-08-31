@@ -5,6 +5,7 @@ module.exports.verify = function(req, res){
     var file = req.file;
     console.log("This is the body ", picture);
     console.log("This is the file", req.file);
+    console.log("This is the request", req);
     
     res.status(200);
     res.send();
