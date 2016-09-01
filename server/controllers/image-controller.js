@@ -6,6 +6,7 @@ module.exports.verify = function(req, res){
         
             var diff = resemble(userImage.path).compareTo(testFile).ignoreAntialiasing().onComplete(function(data){
                  var matchPercentage = 100 - parseInt(data.misMatchPercentage);
+                 console.log(matchPercentage);
                  res.json({match: matchPercentage});
             });
     
