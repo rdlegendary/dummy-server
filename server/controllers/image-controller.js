@@ -1,5 +1,6 @@
 var resemble   = require("node-resemble-js");
 var fs         = require("fs-extra");
+var path       = require("path");
 
 module.exports.verify = function(req, res){
     var userImage = req.files.file;
@@ -16,7 +17,7 @@ module.exports.verify = function(req, res){
 
 module.exports.updateValidationImage = function(req, res){
     var newImage   = req.files.file.path;
-    var targetPath = '../../images/test12.jpg';
+    var targetPath = path.join(__dirname, '../../images/test12.jpg');
     
     console.log("This is Firing");
     
