@@ -10,7 +10,7 @@
      function uploadImage(file){
          if (file){
                         Upload.upload({
-                            url: '/sendPicture',
+                            url: '/update-validation-photo',
                             method: 'POST',
                             file: file
                         }).progress(function(evt){
