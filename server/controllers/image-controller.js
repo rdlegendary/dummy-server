@@ -15,7 +15,7 @@ module.exports.verify = function(req, res){
 }
 
 module.exports.updateValidationImage = function(req, res){
-    var newImage   = req.files.file;
+    var newImage   = req.files.file.path;
     var targetPath = global.absolutePath + '/images/test12.jpg';
     
     console.log("This is Firing");
