@@ -18,13 +18,15 @@ module.exports.updateValidationImage = function(req, res){
     var newImage   = req.files.file;
     var targetPath = global.absolutePath + '/images/test12.jpg';
     
+    console.log("This is Firing");
+    
     fs.rename(newImage, targetPath, function(err){
      if (err){
          res.status(500).send('Image Failed to Upload');
+         console.log("This Failed ", err);
      } else {
+         console.log("this succeeded");
          res.json({'success': true});
-     }
-     
+     }   
     })
-    
 }
