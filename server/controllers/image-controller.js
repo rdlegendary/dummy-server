@@ -3,7 +3,7 @@ var cloudinary = require('cloudinary');
 var fs         = require('fs-extra');
 var request    = require('request').defaults({ encoding: 'base64' });
 var tmp        = require('tmp');
-var Image      = require('../datasets.images.js');
+var Image      = require('../datasets/images.js');
 
 module.exports.verify = function(req, res){
     var userImage = req.files.file;

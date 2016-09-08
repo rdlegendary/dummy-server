@@ -9,7 +9,6 @@ var app                 = express();
 var server              = http.createServer(app);
 global.absolutePath     = __dirname;
 
-
 const PORT = process.env.PORT || 5000;
 
 server.listen(PORT, function(){
