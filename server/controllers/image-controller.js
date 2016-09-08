@@ -21,7 +21,7 @@ module.exports.updateValidationImage = function(req, res){
     
     console.log("this is the absolute path", global.absolutePath);
     
-    console.log("This is Firing");
+    console.log("This is Firing, ", req.files.file);
     
     fs.rename(newImage, targetPath, function(err){
      if (err){
