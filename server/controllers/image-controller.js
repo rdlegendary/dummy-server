@@ -17,7 +17,8 @@ module.exports.verify = function(req, res){
 module.exports.updateValidationImage = function(req, res){
     var newImage   =   req.files.file.path;
 
-//Upload Files To a Third Party   
+//Upload Files To a Third Party
+cloudinary.image(newImage, {angle: 'exif'});    
 cloudinary.uploader.upload(newImage,function(result) { 
     console.log(result.url) 
 });
