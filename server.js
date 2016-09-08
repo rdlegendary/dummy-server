@@ -37,6 +37,7 @@ app.use(multipartMiddleware);
 //Static Files
 app.use('/images', express.static(__dirname + '/images'));
 app.use('/app', express.static(__dirname + '/app'));
+app.use('/tmp', express.static(__dirname + '/tmp'));
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 })
