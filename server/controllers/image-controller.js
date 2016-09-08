@@ -19,11 +19,11 @@ module.exports.updateValidationImage = function(req, res){
 
 //Upload Files To a Third Party
   
-cloudinary.uploader.upload(newImage, {image_metadata: true}, function(result) { 
+cloudinary.uploader.upload(newImage, function(result) { 
    console.log(result.url);
     resemble(result.url).onComplete(function(data){
         console.log(data);
     });
-});
+}, {image_metadata: true});
     
 }
