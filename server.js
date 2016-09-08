@@ -11,6 +11,7 @@ global.absolutePath     = __dirname;
 
 
 const PORT = process.env.PORT || 5000;
+
 server.listen(PORT, function(){
     console.log("we have a server");
 })
@@ -36,10 +37,11 @@ app.use(multipartMiddleware);
 //Static Files
 app.use('/images', express.static(__dirname + '/images'));
 app.use('/app', express.static(__dirname + '/app'));
-
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 })
 
+
 //Endpoints
 app.post('/sendPicture', multipartMiddleware, imageController.verify);
+app.post('/update-validation-photo', multipartMiddleware, imageController.updateValidationImage);

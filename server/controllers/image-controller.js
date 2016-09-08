@@ -1,4 +1,5 @@
 var resemble   = require("node-resemble-js");
+var fs         = require("fs-extra");
 
 module.exports.verify = function(req, res){
     var userImage = req.files.file;
@@ -10,5 +11,20 @@ module.exports.verify = function(req, res){
                    console.log(matchPercentage);
                    res.json({match: matchPercentage});
             });
+    
+}
+
+module.exports.updateValidationImage = function(req, res){
+    var newImage   = req.files.file;
+    var targetPath = global.absolutePath + '/images/test12.jpg';
+    
+    fs.rename(newImage, targetPath, function(err){
+     if (err){
+         res.status(500).send('Image Failed to Upload');
+     } else {
+         res.json({'success': true});
+     }
+     
+    })
     
 }
