@@ -1,5 +1,8 @@
 var resemble   = require("node-resemble-js");
 var cloudinary = require('cloudinary');
+var fs         = require('fs-extra');
+var request    = require('request').defaults({ encoding: 'base64' });
+var tmp        = require('tmp');
 
 module.exports.verify = function(req, res){
     var userImage = req.files.file;
@@ -15,15 +18,33 @@ module.exports.verify = function(req, res){
 }
 
 module.exports.updateValidationImage = function(req, res){
-    var newImage   =   req.files.file.path;
+    
 
 //Upload Files To a Third Party
   
+  
+    var newImage   =   req.files.file.path;
 cloudinary.uploader.upload(newImage, function(result) { 
-   console.log(result.url);
-    resemble(result.url).onComplete(function(data){
-        console.log(data);
-    });
+   encodeImage(result.url);
 }, {image_metadata: true});
+ 
     
+}
+
+function encodeImage(url, cb){
+    request.get(url, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+        data = new Buffer(body, 'base64');
+        fs.writeFile('/tmp/rick.jpg', data, 'binary', function(err){
+            if (err){
+                console.log(err);
+            } else {
+                resemble('/tmp/rick.jpg').onComplete(function(data){
+                    console.log(data);
+                })
+            }
+        })
+    
+    }
+});
 }

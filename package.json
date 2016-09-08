@@ -3,13 +3,15 @@
   "version": "0.0.1",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "cloudinary": "",
     "connect-multiparty": "^2.0.0",
     "express": "^4.14.0",
     "fs-extra": "^0.30.0",
     "http": "0.0.0",
     "node-resemble-js": "^0.1.1",
     "path": "^0.12.7",
-    "cloudinary": ""  
+    "request": "^2.74.0",
+    "tmp": "0.0.28"
   },
   "devDependencies": {
     "express": "^4.14.0",
