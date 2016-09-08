@@ -17,15 +17,16 @@ module.exports.verify = function(req, res){
 
 module.exports.updateValidationImage = function(req, res){
     var newImage   =   req.files.file.path;
-    var targetPath =  global.absolutePath + '/images/test12.jpg';
+    var targetPath =   global.absolutePath + '/images/test12.jpg';
+    console.log("this is firing");
     
-    fs.rename(newImage, targetPath, function(err){
-     if (err){
-         res.status(500).send('Image Failed to Upload');
-         console.log("This Failed ", err);
-     } else {
-         console.log("this succeeded");
-         res.json({'success': true});
-     }   
-    })
+    var is = fs.createReadStream(newImage);
+    var os = fs.createWriteStream(targetPath);
+
+is.pipe(os);
+is.on('end',function() {
+    console.log("this worked")
+    fs.unlinkSync(newImage);
+});
+    
 }
