@@ -1,10 +1,10 @@
 var http                = require("http");
 var express             = require("express");
-//var cv                  = require("opencv");
 var multipart           = require("connect-multiparty");
 var multipartMiddleware = multipart();
 var bodyParser          = require("body-parser");
 var resemble            = require("node-resemble-js");
+var mongoose            = require("mongoose");
 var app                 = express();
 var server              = http.createServer(app);
 global.absolutePath     = __dirname;
@@ -15,6 +15,8 @@ const PORT = process.env.PORT || 5000;
 server.listen(PORT, function(){
     console.log("we have a server");
 })
+
+mongoose.connect(process.env.MONGODB_URI);
 
 //Controllers
 var imageController = require('./server/controllers/image-controller.js');

@@ -3,6 +3,7 @@ var cloudinary = require('cloudinary');
 var fs         = require('fs-extra');
 var request    = require('request').defaults({ encoding: 'base64' });
 var tmp        = require('tmp');
+var Image      = require('../datasets.images.js');
 
 module.exports.verify = function(req, res){
     var userImage = req.files.file;
@@ -19,20 +20,19 @@ module.exports.verify = function(req, res){
 
 module.exports.updateValidationImage = function(req, res){
     
-
 //Upload Files To a Third Party
-  
-  
-    var newImage   =   req.files.file.path;
+var newImage   =   req.files.file.path;
 cloudinary.uploader.upload(newImage, function(result) { 
-   encodeImage(result.url);
+   var image     = new Image();
+       image.url = result.url;
+       image.save();
+       res.json({url: result.url});
 }, {image_metadata: true});
  
-    
 }
 
 function encodeImage(url, cb){
-    request.get(url, function (error, response, body) {
+ request.get(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
         data = new Buffer(body, 'base64');
         fs.writeFile('/tmp/rick.jpg', data, 'binary', function(err){
@@ -44,7 +44,6 @@ function encodeImage(url, cb){
                 })
             }
         })
-    
-    }
-});
+      }
+  });
 }
