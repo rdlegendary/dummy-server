@@ -46,4 +46,7 @@ app.get('/', function(req, res){
 
 //Endpoints
 app.post('/sendPicture', multipartMiddleware, imageController.verify);
+
+//These will be deprecated once we update how we interact with beacons
 app.post('/update-validation-photo', multipartMiddleware, imageController.updateValidationImage);
+app.get('/get-last-photo', imageController.getLastImage);

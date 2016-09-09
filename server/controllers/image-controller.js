@@ -31,6 +31,18 @@ cloudinary.uploader.upload(newImage, function(result) {
  
 }
 
+module.exports.getLastImage = function(req, res){
+    Image.findOne().sort({date: -1}).exec(function(err, image){
+        if (err){
+            res.status(500);
+            res.send();
+            return;
+        }
+        //Send the Image
+        res.json(image);
+    })
+}
+
 function encodeImage(url, cb){
  request.get(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {

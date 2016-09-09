@@ -1,10 +1,16 @@
 (function(window, angular, undefined){
     angular.module("cvCapche", ['ngFileUpload']);
     
-    angular.module("cvCapche").controller("verifyController", ['$scope', 'Upload',
-    function(                                                   $scope,   Upload){
+    angular.module("cvCapche").controller("verifyController", ['$scope', '$http', 'Upload',
+    function(                                                   $scope,   $http,   Upload){
        //Variables
         $scope.file = undefined;
+        
+        $scope.getImage = function(){
+            $http.get("/get-last-photo").then(function(response){
+                console.log(response.data);
+            })
+        }
         
         
      function uploadImage(file){
