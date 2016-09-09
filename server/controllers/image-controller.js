@@ -7,15 +7,20 @@ var Image      = require('../datasets/images.js');
 
 module.exports.verify = function(req, res){
     var userImage = req.files.file;
-    var testFile  = global.absolutePath + '/images/test12.jpg';
-        
-            var diff = resemble(testFile).compareTo(userImage.path).ignoreAntialiasing().onComplete(function(data){
-                console.log(data);
-                 var matchPercentage = 100 - parseInt(data.misMatchPercentage);
+    Image.findOne().sort({date: -1}).exec(function(err, image){
+        if (err){
+            res.status(500);
+            res.send();
+            return;
+        }
+        //Send the Image
+        compareImages(userImage.path, image.url, function(data){
+                   console.log(data);
+                   var matchPercentage = 100 - parseInt(data.misMatchPercentage);
                    console.log(matchPercentage);
                    res.json({match: matchPercentage});
-            });
-    
+        })          
+    })
 }
 
 module.exports.updateValidationImage = function(req, res){
@@ -43,17 +48,17 @@ module.exports.getLastImage = function(req, res){
     })
 }
 
-function encodeImage(url, cb){
+function compareImages(file, url, cb){
  request.get(url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
         data = new Buffer(body, 'base64');
-        fs.writeFile('/tmp/rick.jpg', data, 'binary', function(err){
+        fs.writeFile('/tmp/test.jpg', data, 'binary', function(err){
             if (err){
                 console.log(err);
             } else {
-                resemble('/tmp/rick.jpg').onComplete(function(data){
-                    console.log(data);
-                })
+                var diff = resemble(file).compareTo('/tmp/test.jpg').ignoreAntialiasing().onComplete(function(data){
+                cb(data);
+            });
             }
         })
       }
