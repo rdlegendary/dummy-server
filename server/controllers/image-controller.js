@@ -31,7 +31,8 @@ cloudinary.uploader.upload(newImage, function(result) {
    var image     = new Image();
        image.url = result.url;
        image.save();
-       res.json({url: result.url});
+       res.status(200);
+       res.send();
 }, {image_metadata: true});
  
 }
